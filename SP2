@@ -1,0 +1,177 @@
+<html>
+<body>
+
+
+<p>Calculate GC content of a sequence.</p>
+
+<form action="" onsubmit="userInput()">
+<h1>Enter Genome Sequence:</h1>
+<br>
+<h2><textarea id="seqName" rows="5" cols="30"> </textarea></h2>
+<br>
+<h3><input type="button" value="Find GC Content" onclick="userInput()"></h3>
+</form>
+
+<p id=Sequence> </p>
+<p id=SeqNum> </p>
+<p id=Results> </p>
+
+
+
+<script>
+function userInput() {
+var sequence = document.getElementById("seqName").value;
+var GCnumber = 0;
+var TotalNumber = sequence.length;
+var sequenceNumber = 0;
+var newLine = 0;
+
+
+var seqCount = -1;
+var TempStuff;
+
+var TitleCheck = "end";
+var SequenceCheck;
+var TableString;
+
+var sequenceList = new Array(sequenceNumber);
+var sequenceTitles = new Array(sequenceNumber);
+var GC_Contents = new Array(sequenceNumber);
+
+for (var i = 0, len = sequence.length; i < len; i++) {
+  if (sequence[i] == ">") {
+    sequenceNumber = sequenceNumber + 1;
+  }
+}
+
+if((sequenceNumber == 0) && (sequence.length > 1))
+{
+  sequenceNumber = 1;
+  seqCount = 0;
+  sequenceList[seqCount] = "";
+  sequenceTitles[seqCount] = "Undefined Sequence";
+}
+
+
+
+
+
+document.getElementById("SeqNum").innerHTML ="test " + sequence.length +TitleCheck;
+
+
+for (var i = 0, len = sequence.length; i < len; i++) {
+
+
+if ((TitleCheck == "start") && (sequence[i] == "\n")) {
+TitleCheck = "end";
+sequenceList[seqCount] = "";
+
+}
+
+
+if ( TitleCheck == "start"){
+TempStuff = sequenceTitles[seqCount].concat(sequence[i]);
+sequenceTitles[seqCount] = TempStuff;
+
+}
+
+if(sequence[i] == ">") {
+seqCount = seqCount + 1;
+TitleCheck = "start";
+sequenceTitles[seqCount] = "";
+}
+
+
+
+if((TitleCheck == "end") && (sequence[i]!="\n")  && (sequence[i]!="\t")  && (sequence[i]!=" ")){
+TempStuff = sequenceList[seqCount].concat(sequence[i]);
+sequenceList[seqCount] = TempStuff;
+document.getElementById("SeqNum").innerHTML ="test 3 " + sequence.length +TitleCheck;
+
+}
+}
+
+document.getElementById("SeqNum").innerHTML ="test 2 " + sequence.length +TitleCheck;
+
+
+sequence=sequence.toUpperCase();
+
+if (sequence == "") {
+alert("Enter Genome Sequence");
+}
+else{
+
+  for (var x = 0; x < sequenceNumber; x++) {
+    GCnumber = 0;
+    for (var i = 0, len = sequenceList[x].length; i < len; i++) {
+      if (sequenceList[x][i] == "G" || sequenceList[x][i] == "C") {
+      GCnumber = GCnumber + 1;
+      }
+    }
+    GC_Contents[x] = GCnumber/sequenceList[x].length * 100;
+  }
+}
+
+
+
+
+document.getElementById("SeqNum").innerHTML = "You have " + sequenceNumber + " sequences" +TempStuff;
+TableString = "<table border=1 bgcolor= 6600FF><tr><td bgcolor=66FFFF><b> Sequence </td><td bgcolor=66FFFF width=50>GC Content</td></tr><tr>";
+
+for(i = 0, len = sequenceNumber; i < len; i++)
+{
+TableString = TableString + "<tr><td bgcolor=66FFFF><b>"+ sequenceTitles[i] +"</b></td><td bgcolor=66FFFF><b>" + parseFloat(GC_Contents[i]).toFixed(2) + "%</b></td></tr>";
+}
+
+TableString = TableString + "</table>";
+
+
+document.getElementById("Results").innerHTML =TableString;
+
+
+}
+</script>
+
+</body>
+</html>
+
+<!--Tab title-->
+</script></pre><body><html>
+<head>
+<title>GC Finder</title>
+
+
+
+<html>
+<head>
+<style>
+body {
+background:#6A5ACD url("dna.jpg") no-repeat fixed top right;
+background-size: 100% 100%;
+}
+p {
+color: #4169E1
+}
+p {
+font-family: Tahoma, Geneva, sans-serif;
+font-size: 200%;
+margin: 2cm 2cm 1cm 7cm;
+}
+h1 {
+color: #66FF99;
+font-size: 100%;
+font-family: Tahoma, Geneva, sans-serif;
+margin: 0cm 0cm 0cm 8cm;
+}
+h1{
+background-size: 50% 40%;
+width: 210;
+
+}
+h2 {
+margin: 0cm 0cm 0cm 8cm;
+}
+h3 {
+margin: 0cm 0cm 0cm 8cm;
+color: #4DA64D;
+}
